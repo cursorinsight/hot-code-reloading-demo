@@ -1,0 +1,17 @@
+%%%-----------------------------------------------------------------------------
+%%% Copyright (C) 2018 Cursor Insight
+%%%
+%%% All rights reserved.
+%%%-----------------------------------------------------------------------------
+
+{application, hcr_demo,
+ [{description, "Hot Code Reload Demonstration Application"},
+  {vsn, "0.0.0"},
+  {modules, []},
+  {registered, []},
+  {applications,
+   [kernel,
+    stdlib
+   ]},
+  {mod, {hcr_demo_app, []}}
+ ]}.
