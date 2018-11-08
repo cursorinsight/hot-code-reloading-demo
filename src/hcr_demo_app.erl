@@ -32,10 +32,26 @@
       State :: term(),
       Reason :: term().
 start(_StartType, _StartArgs) ->
-    hcr_demo_sup:start_link().
+    {ok, _} = start_http(),
+    {ok, _} = hcr_demo_sup:start_link().
 
 %% @doc Stop the application.
 -spec stop(State) -> ok when
       State :: term().
 stop(_State) ->
     ok.
+
+%%%=============================================================================
+%%% Internal functions
+%%%=============================================================================
+
+%% @doc Set up and start `cowboy' routes and handlers.
+-spec start_http() -> {ok, Pid} when
+      Pid :: pid().
+start_http() ->
+    Dispatch = cowboy_router:compile([{'_',
+                                       [{"/", hcr_demo_root_handler, []}]}
+                                     ]),
+    {ok, _} = cowboy:start_clear(http,
+                                 [{port, 8080}],
+                                 #{env => #{dispatch => Dispatch}}).

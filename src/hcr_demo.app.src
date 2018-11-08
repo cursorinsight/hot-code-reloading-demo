@@ -12,6 +12,7 @@
   {applications,
    [kernel,
     stdlib,
-    sasl]},
+    sasl,
+    cowboy]},
   {mod, {hcr_demo_app, []}}
  ]}.
