@@ -94,3 +94,7 @@ reset-cover: $(REBAR)
 .PHONY: shell
 shell: $(REBAR)
 	$(BEAM_FLAGS) $(REBAR) as mock shell
+
+.PHONY: release
+release: $(REBAR)
+	$(REBAR) as prod tar -n hcr_demo
