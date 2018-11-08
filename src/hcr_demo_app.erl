@@ -39,16 +39,3 @@ start(_StartType, _StartArgs) ->
       State :: term().
 stop(_State) ->
     ok.
-
-%%%=============================================================================
-%%% EUnit tests
-%%%=============================================================================
-
--ifdef(TEST).
--include_lib("eunit/include/eunit.hrl").
-
-basic_test() ->
-    ?assertEqual(ok, ok),
-    ok.
-
--endif.
