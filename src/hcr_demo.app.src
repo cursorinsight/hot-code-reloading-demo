@@ -6,7 +6,7 @@
 
 {application, hcr_demo,
  [{description, "Hot Code Reload Demonstration Application"},
-  {vsn, "0.0.0"},
+  {vsn, "0.1.0"},
   {modules, []},
   {registered, []},
   {applications,
