@@ -24,6 +24,10 @@
 %% Application callbacks
 -export([start/2, stop/1]).
 
+%% Cowboy route handlers
+-export([get_routes/1,
+         set_routes/1]).
+
 %%%=============================================================================
 %%% Application callbacks
 %%%=============================================================================
@@ -55,15 +59,28 @@ stop(_State) ->
 -spec start_http() -> {ok, Pid} when
       Pid :: pid().
 start_http() ->
-    Dispatch = cowboy_router:compile([{'_',
-                                       [{"/", hcr_demo_root_handler, []},
-                                        {"/s", hcr_demo_state_handler, []},
-                                        {"/f", hcr_demo_slow_file_handler, []},
-                                        {"/c", hcr_demo_continuous_handler, []}
-                                       ]}]),
+    Dispatch = cowboy_router:compile([{'_', get_routes(?VERSION)}]),
     {ok, _} = cowboy:start_clear(http,
                                  [{port, 8080}],
                                  #{env => #{dispatch => Dispatch},
                                    idle_timeout => ?INFINITY,
                                    inactivity_timeout => ?INFINITY
                                   }).
+
+-spec get_routes(Version) -> Routes when
+      Version :: string(),
+      Routes :: [{string(), module(), Options}],
+      Options :: [term() | {atom(), term()}].
+get_routes("0.2.0") ->
+    get_routes("0.1.0") ++ [{"/v", hcr_demo_version_handler, []}];
+get_routes("0.1.0") ->
+    [{"/", hcr_demo_root_handler, []},
+     {"/s", hcr_demo_state_handler, []},
+     {"/f", hcr_demo_slow_file_handler, []},
+     {"/c", hcr_demo_continuous_handler, []}].
+
+-spec set_routes(Version) -> ok when
+      Version :: string().
+set_routes(Version) ->
+    CompiledRoutes = cowboy_router:compile([{'_', get_routes(Version)}]),
+    ok = cowboy:set_env(http, dispatch, CompiledRoutes).
