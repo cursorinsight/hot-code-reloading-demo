@@ -4,9 +4,9 @@
 %%% All rights reserved.
 %%%-----------------------------------------------------------------------------
 %%%
-%%% @doc hcr_demo root page handler.
+%%% @doc hcr_demo state handler, i.e. return information regarding The State.
 
--module(hcr_demo_root_handler).
+-module(hcr_demo_state_handler).
 -include("hcr_demo.hrl").
 
 -behaviour(cowboy_handler).
@@ -25,9 +25,15 @@
       Req :: cowboy_req:req(),
       State :: term().
 init(Req0, State) ->
-    ok = hcr_demo_state_server:trigger(),
     Req1 = cowboy_req:reply(200,
                             #{<<"content-type">> => <<"text/plain">>},
-                            <<"Hello world!\r\n">>,
+                            [io_lib:format(
+                               "Call counter: ~w",
+                               [hcr_demo_state_server:get_call_counter()]),
+                             <<"\r\n">>,
+                             io_lib:format(
+                               "Timed counter: ~w",
+                               [hcr_demo_state_server:get_timed_counter()]),
+                             <<"\r\n">>],
                             Req0),
     {ok, Req1, State}.

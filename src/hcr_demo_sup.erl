@@ -51,10 +51,9 @@ init(_Config = #{}) ->
     SupFlags = #{strategy => one_for_one,
                  intensity => 3,
                  period => 1},
-    ChildSpecs = [%#{id => XXX_child_module_XXX,
-                  %  start => {XXX_child_module_XXX, start_link, []},
-                  %  restart => permanent,
-                  %  shutdown => 1000,
-                  %  type => supervisor}
-                  ],
+    ChildSpecs = [#{id => hcr_demo_state_server,
+                    start => {hcr_demo_state_server, start_link, []},
+                    restart => permanent,
+                    shutdown => 1000,
+                    type => supervisor}],
     {ok, {SupFlags, ChildSpecs}}.

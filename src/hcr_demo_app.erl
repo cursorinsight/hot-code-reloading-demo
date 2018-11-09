@@ -50,8 +50,9 @@ stop(_State) ->
       Pid :: pid().
 start_http() ->
     Dispatch = cowboy_router:compile([{'_',
-                                       [{"/", hcr_demo_root_handler, []}]}
-                                     ]),
+                                       [{"/", hcr_demo_root_handler, []},
+                                        {"/s", hcr_demo_state_handler, []}
+                                       ]}]),
     {ok, _} = cowboy:start_clear(http,
                                  [{port, 8080}],
                                  #{env => #{dispatch => Dispatch}}).
