@@ -1,0 +1,15 @@
+{"0.2.0",
+ [{"0.1.0", [
+             {add_module, hcr_demo_version_handler},
+             {load_module, hcr_demo_continuous_handler, soft_purge, soft_purge, []},
+             {load_module, hcr_demo_root_handler, soft_purge, soft_purge, []},
+             {load_module, hcr_demo_slow_file_handler, soft_purge, soft_purge, []},
+             {load_module, hcr_demo_state_handler, soft_purge, soft_purge, []},
+             {load_module, hcr_demo_state_server},
+             {load_module, hcr_demo_sup},
+             {apply, {supervisor, restart_child, [hcr_demo_sup, hcr_demo_state_server]}},
+             {load_module, hcr_demo_app},
+             {apply, {hcr_demo_app, set_routes, ["0.2.0"]}}
+             ]}],
+ [{"0.1.0", []}]
+}.

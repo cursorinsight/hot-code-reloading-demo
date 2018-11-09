@@ -98,3 +98,12 @@ shell: $(REBAR)
 .PHONY: release
 release: $(REBAR)
 	$(REBAR) as prod tar -n hcr_demo
+
+$(TOP_DIR)_build/prod/lib/hcr_demo/ebin/hcr_demo.appup: $(TOP_DIR)src/hcr_demo.appup.src
+	@cp $< $@
+
+.PHONY: relup
+relup: $(REBAR) $(TOP_DIR)_build/prod/lib/hcr_demo/ebin/hcr_demo.appup
+	$(REBAR) as prod release -n hcr_demo
+	$(REBAR) as prod relup -n hcr_demo -v "0.2.0" -u "0.1.0"
+	$(REBAR) as prod tar -n hcr_demo -v "0.2.0"
