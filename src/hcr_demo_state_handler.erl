@@ -27,7 +27,9 @@
 init(Req0, State) ->
     Req1 = cowboy_req:reply(200,
                             #{<<"content-type">> => <<"text/plain">>},
-                            [io_lib:format(
+                            [io_lib:format("Version: ~s", [?VERSION]),
+                             <<"\r\n">>,
+                             io_lib:format(
                                "Call counter: ~w",
                                [hcr_demo_state_server:get_call_counter()]),
                              <<"\r\n">>,

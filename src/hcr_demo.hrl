@@ -13,4 +13,9 @@
 
 -define(APPLICATION, hcr_demo).
 
+-define(VERSION, (fun({_, _, V}) -> V;
+                     (_) -> not_found
+                  end(lists:keyfind(?APPLICATION, 1,
+                                    application:loaded_applications())))).
+
 -endif. % ifndef(HCR_DEMO_PRIVATE_HRL)
