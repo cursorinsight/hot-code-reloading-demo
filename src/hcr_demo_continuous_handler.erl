@@ -42,7 +42,7 @@ init(Req0, State) ->
       Req :: cowboy_req:req().
 send_state(Req) ->
     cowboy_req:stream_body(
-      [io_lib:format("version: ~s, call counter: ~3w, timed counter: ~3w",
+      [io_lib:format("VERSION: ~s, CALL COUNTER: ~3w, TIMED COUNTER: ~3w",
                      [?VERSION,
                       hcr_demo_state_server:get_call_counter(),
                       hcr_demo_state_server:get_timed_counter()]),

@@ -27,14 +27,14 @@
 init(Req0, State) ->
     Req1 = cowboy_req:reply(200,
                             #{<<"content-type">> => <<"text/plain">>},
-                            [io_lib:format("Version: ~s", [?VERSION]),
+                            [io_lib:format("VERSION: ~s", [?VERSION]),
                              <<"\r\n">>,
                              io_lib:format(
-                               "Call counter: ~w",
+                               "CALL COUNTER: ~w",
                                [hcr_demo_state_server:get_call_counter()]),
                              <<"\r\n">>,
                              io_lib:format(
-                               "Timed counter: ~w",
+                               "TIMED COUNTER: ~w",
                                [hcr_demo_state_server:get_timed_counter()]),
                              <<"\r\n">>],
                             Req0),

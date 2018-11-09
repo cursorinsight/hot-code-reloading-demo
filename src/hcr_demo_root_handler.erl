@@ -28,6 +28,6 @@ init(Req0, State) ->
     ok = hcr_demo_state_server:trigger(),
     Req1 = cowboy_req:reply(200,
                             #{<<"content-type">> => <<"text/plain">>},
-                            <<"Hello world!\r\n">>,
+                            <<"HELLO WORLD!\r\n">>,
                             Req0),
     {ok, Req1, State}.
